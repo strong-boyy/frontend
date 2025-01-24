@@ -3,12 +3,18 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
+import MainLayout from './layouts/MainLayout'
+import Setting from './pages/Setting'
 
 export default function useRouteElement() {
   const routeElements = useRoutes([
     {
       path: '/',
-      element: <Home />
+      element: (
+        <MainLayout>
+          <Home />{' '}
+        </MainLayout>
+      )
     },
     {
       path: '/login',
@@ -24,6 +30,46 @@ export default function useRouteElement() {
         <RegisterLayout>
           <Register />
         </RegisterLayout>
+      )
+    },
+    {
+      path: '/time-line',
+      element: (
+        <MainLayout>
+          <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: '/task',
+      element: (
+        <MainLayout>
+          <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: '/message',
+      element: (
+        <MainLayout>
+          <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: '/setting',
+      element: (
+        <MainLayout>
+          <Setting />
+        </MainLayout>
+      )
+    },
+    {
+      path: '/file',
+      element: (
+        <MainLayout>
+          <Home />
+        </MainLayout>
       )
     }
   ])
