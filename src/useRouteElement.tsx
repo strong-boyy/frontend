@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 import Setting from './pages/Setting'
+import Task from './pages/Task'
 
 export default function useRouteElement() {
   const routeElements = useRoutes([
@@ -44,7 +45,7 @@ export default function useRouteElement() {
       path: '/task',
       element: (
         <MainLayout>
-          <Home />
+          <Task />
         </MainLayout>
       )
     },
