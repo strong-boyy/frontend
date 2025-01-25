@@ -1,4 +1,18 @@
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Input from '../../components/Input'
+import { schema, FormData } from '../../utils/rules'
+
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
+
+  const onSubmit = handleSubmit((data) => console.log(data))
   return (
     <div className='  flex flex-col justify-center  sm:px-6 lg:px-8 '>
       <div className=' bg-white mx-2 border border-gray-300 flex-shrink-0 sm:mx-auto sm:w-full sm:max-w-md rounded-lg sm:transform sm:transition-transform sm:duration-3s00 sm:ease-out sm:hover:scale-105 sm:hover:shadow-lg'>
@@ -31,19 +45,19 @@ export default function Login() {
               </div>
               <span className='ml-4'>Sign In with Google</span>
             </button>
-            <form>
+            <form onSubmit={onSubmit}>
               <div className='mt-4'>
                 <label htmlFor='email' className='block text-sm font-medium leading-5 text-gray-700'>
                   Email address
                 </label>
                 <div className='mt-1 relative rounded-md shadow-sm'>
-                  <input
-                    id='email'
+                  <Input
+                    register={register}
                     name='email'
-                    placeholder='user@example.com'
                     type='email'
-                    required
-                    className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+                    placeholder='user@example.com'
+                    autoComplete='on'
+                    errorMessage={errors.email?.message}
                   />
                   <div className='hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
                     <svg className='h-5 w-5 text-red-500' fill='currentColor' viewBox='0 0 20 20'>
@@ -61,12 +75,14 @@ export default function Login() {
                   Password
                 </label>
                 <div className='mt-1 rounded-md shadow-sm'>
-                  <input
-                    id='password'
+                  <Input
+                    register={register}
+                    className='relative'
                     name='password'
                     type='password'
-                    required
-                    className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+                    placeholder='Password'
+                    autoComplete='on'
+                    errorMessage={errors.password?.message}
                   />
                 </div>
               </div>
