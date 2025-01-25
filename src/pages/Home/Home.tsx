@@ -99,7 +99,7 @@ export default function Home() {
         </div>
         <div className='col-span-4'>
           {/* Right Sidebar */}
-          <div className='w-80 bg-white p-8'>
+          <div className='w-80 bg-white px-8 py-2 ml-10'>
             {/* Today's Schedule */}
             <div className='mb-8'>
               <h2 className='text-xl font-bold mb-4'>Today's Schedule</h2>
