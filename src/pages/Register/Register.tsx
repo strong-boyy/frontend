@@ -1,24 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import Input from '../../components/Input'
-
-const schema = yup.object({
-  name: yup.string().required('Please enter your name'),
-  email: yup.string().email().required('Please enter your email'),
-  password: yup
-    .string()
-    .required('Please enter your password')
-    .min(10, 'Password must be at least 10 characters')
-    .max(20, 'Password must be at most 20 characters')
-    .matches(/[a-zA-Z]/, 'Password must contain at least one letter'),
-  confirmPassword: yup
-    .string()
-    .required('Please confirm your password')
-    .oneOf([yup.ref('password')], 'Passwords must match')
-})
-
-type FormData = yup.InferType<typeof schema>
+import { schema, FormData } from '../../utils/rules'
 export default function Register() {
   const {
     register,
@@ -104,6 +87,7 @@ export default function Register() {
                 </label>
                 <div className=' rounded-md shadow-sm'>
                   <Input
+                    className='relative'
                     register={register}
                     name='password'
                     type='password'
@@ -119,12 +103,13 @@ export default function Register() {
                 </label>
                 <div className=' rounded-md shadow-sm'>
                   <Input
+                    className='relative'
                     register={register}
-                    name='password_confirmation'
+                    name='confirm_password'
                     type='password'
                     placeholder='Confirm Password'
                     autoComplete='on'
-                    errorMessage={errors.confirmPassword?.message}
+                    errorMessage={errors.confirm_password?.message}
                   />
                 </div>
               </div>
