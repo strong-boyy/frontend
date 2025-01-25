@@ -1,4 +1,5 @@
 import { Fragment } from 'react/jsx-runtime'
+import LineChart from '../../components/LineChart'
 
 export default function Home() {
   return (
@@ -6,55 +7,41 @@ export default function Home() {
       <div className='grid grid-cols-12 gap-2'>
         <div className='col-span-8'>
           {/* Stats Cards */}
-          <div className='grid grid-cols-3 gap-4 mb-8'>
-            <div className='bg-white p-6 rounded-lg shadow'>
-              <div className='flex justify-between items-center mb-4'>
+          <div className='grid grid-cols-3 gap-2 mb-4'>
+            <div className='bg-white px-6 py-1 rounded-lg shadow'>
+              <div className='flex justify-between items-center mb-1'>
                 <h2 className='text-gray-500'>Task Completed</h2>
                 <i className='fas fa-star text-gray-300 text-xl'></i>
               </div>
               <div className='flex items-center'>
-                <h1 className='text-4xl font-bold'>08</h1>
+                <h3 className='text-2xl font-bold'>08</h3>
                 <div className='ml-4 text-green-500'>10+ more from last week</div>
               </div>
             </div>
-            <div className='bg-white p-6 rounded-lg shadow'>
-              <div className='flex justify-between items-center mb-4'>
+            <div className='bg-white px-6 py-1 rounded-lg shadow'>
+              <div className='flex justify-between items-center mb-1'>
                 <h2 className='text-gray-500'>New Task</h2>
                 <i className='fas fa-file-alt text-gray-300 text-xl'></i>
               </div>
               <div className='flex items-center'>
-                <h1 className='text-4xl font-bold'>10</h1>
+                <h3 className='text-2xl font-bold'>10</h3>
                 <div className='ml-4 text-green-500'>10+ more from last week</div>
               </div>
             </div>
-            <div className='bg-white p-6 rounded-lg shadow'>
-              <div className='flex justify-between items-center mb-4'>
+            <div className='bg-white px-6 py-1 rounded-lg shadow'>
+              <div className='flex justify-between items-center mb-1'>
                 <h2 className='text-gray-500'>Project Done</h2>
                 <i className='fas fa-file-alt text-gray-300 text-xl'></i>
               </div>
               <div className='flex items-center'>
-                <h1 className='text-4xl font-bold'>10</h1>
+                <h3 className='text-2xl font-bold'>10</h3>
                 <div className='ml-4 text-green-500'>08+ more from last week</div>
               </div>
             </div>
           </div>
           {/* Task Done Chart */}
-          <div className='bg-white p-6 rounded-lg shadow mb-8'>
-            <div className='flex justify-between items-center mb-4'>
-              <h2 className='text-xl font-bold'>Task Done</h2>
-              <div className='flex space-x-4'>
-                <button className='text-gray-500'>Daily</button>
-                <button className='text-gray-500'>Weekly</button>
-                <button className='text-blue-500 font-bold'>Monthly</button>
-              </div>
-            </div>
-            <img
-              alt='Task Done Chart'
-              height={300}
-              src='https://storage.googleapis.com/a1aa/image/Tma-42MC0_wRJ3kcYmbSZGbOHnRqa1JjHhHz3A_TrTw.jpg'
-              width={600}
-            />
-          </div>
+          <LineChart />
+          {/* Task Progress Chart */}
           {/* Task List */}
           <div>
             <h2 className='text-xl font-bold mb-4'>Task</h2>

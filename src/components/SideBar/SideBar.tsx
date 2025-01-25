@@ -23,7 +23,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
@@ -51,7 +51,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
@@ -77,7 +77,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
@@ -107,7 +107,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
@@ -132,7 +132,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
@@ -157,7 +157,7 @@ export default function SideBar() {
             {({ isActive }) => {
               return (
                 <svg
-                  className={classNames('w-8 h-8 ', {
+                  className={classNames('w-5 h-5 ', {
                     'fill-white': isActive,
                     'fill-gray-600': !isActive
                   })}
