@@ -21,4 +21,7 @@ export const schema = yup.object({
   confirm_password: handleConfirmPasswordYup('password')
 })
 
+export const loginSchema = schema.pick(['email', 'password'])
+
 export type FormData = yup.InferType<typeof schema>
+export type LoginSchema = yup.InferType<typeof loginSchema>

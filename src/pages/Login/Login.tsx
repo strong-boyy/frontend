@@ -1,18 +1,38 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../../components/Input'
-import { schema, FormData } from '../../utils/rules'
+import { loginSchema, LoginSchema } from '../../utils/rules'
+import { useMutation } from '@tanstack/react-query'
+import userApi from '../../apis/user.api'
+import { toast } from 'react-toastify'
 
 export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormData>({
-    resolver: yupResolver(schema)
+  } = useForm<LoginSchema>({
+    resolver: yupResolver(loginSchema)
   })
 
-  const onSubmit = handleSubmit((data) => console.log(data))
+  const loginMutation = useMutation({
+    mutationFn: (body: LoginSchema) => userApi.login(body)
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    // console.log(data)
+    loginMutation.mutate(data, {
+      onSuccess: (data) => {
+        toast.success(data.data.message, {
+          position: 'top-right',
+          autoClose: 2000
+        })
+      },
+      onError: (error) => {
+        console.log('Error login: ', error)
+      }
+    })
+  })
   return (
     <div className='  flex flex-col justify-center  sm:px-6 lg:px-8 '>
       <div className=' bg-white mx-2 border border-gray-300 flex-shrink-0 sm:mx-auto sm:w-full sm:max-w-md rounded-lg sm:transform sm:transition-transform sm:duration-3s00 sm:ease-out sm:hover:scale-105 sm:hover:shadow-lg'>
