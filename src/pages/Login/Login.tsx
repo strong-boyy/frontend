@@ -5,6 +5,12 @@ import { loginSchema, LoginSchema } from '../../utils/rules'
 import { useMutation } from '@tanstack/react-query'
 import userApi from '../../apis/user.api'
 import { toast } from 'react-toastify'
+import Button from '../../components/Button'
+import { useNavigate } from 'react-router-dom'
+import path from '../../constants/path'
+import { useAppDispatch } from '../../store'
+import { loginSuccess } from '../../store/user.slice'
+import { User } from '../../types/user.type'
 
 export default function Login() {
   const {
@@ -14,6 +20,8 @@ export default function Login() {
   } = useForm<LoginSchema>({
     resolver: yupResolver(loginSchema)
   })
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const loginMutation = useMutation({
     mutationFn: (body: LoginSchema) => userApi.login(body)
@@ -22,11 +30,13 @@ export default function Login() {
   const onSubmit = handleSubmit((data) => {
     // console.log(data)
     loginMutation.mutate(data, {
-      onSuccess: (data) => {
-        toast.success(data.data.message, {
+      onSuccess: (response) => {
+        toast.success(response.data.message, {
           position: 'top-right',
           autoClose: 2000
         })
+        dispatch(loginSuccess(response.data.data.user))
+        navigate(path.home)
       },
       onError: (error) => {
         console.log('Error login: ', error)
@@ -109,12 +119,14 @@ export default function Login() {
 
               <div className='mt-4'>
                 <span className='block w-full rounded-md shadow-sm'>
-                  <button
+                  <Button
                     type='submit'
+                    isLoading={loginMutation.isPending}
+                    disabled={loginMutation.isPending}
                     className='w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md bg-blue text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out'
                   >
                     Sign In
-                  </button>
+                  </Button>
                 </span>
               </div>
             </form>
