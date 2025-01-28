@@ -4,7 +4,7 @@ const handleConfirmPasswordYup = (refString: string) => {
   return yup
     .string()
     .required('Please confirm your password')
-    .min(6, 'Password must be at least 6 characters')
+    .min(8, 'Password must be at least 8 characters')
     .max(20, 'Password must be at most 20 characters')
     .oneOf([yup.ref(refString)], 'Passwords must match')
 }
@@ -15,7 +15,7 @@ export const schema = yup.object({
   password: yup
     .string()
     .required('Please enter your password')
-    .min(6, 'Password must be at least 6 characters')
+    .min(8, 'Password must be at least 8 characters')
     .max(20, 'Password must be at most 20 characters')
     .matches(/[a-zA-Z]/, 'Password must contain at least one letter'),
   confirm_password: handleConfirmPasswordYup('password')

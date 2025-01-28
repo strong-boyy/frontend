@@ -3,16 +3,51 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../../components/Input'
 import { schema, FormData } from '../../utils/rules'
 import Button from '../../components/Button'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import userApi from '../../apis/user.api'
+import { toast } from 'react-toastify'
+import path from '../../constants/path'
+import { ErrorResponse } from '../../types/utils.type'
+import { isAxiosBadRequestError } from '../../utils/utils'
 export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<FormData>({
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = handleSubmit((data) => console.log(data))
+  const navigate = useNavigate()
+
+  const registerMutation = useMutation({
+    mutationFn: (body: FormData) => userApi.registerAccount(body)
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    registerMutation.mutate(data, {
+      onSuccess: (response) => {
+        toast.success(response.data.message, {
+          position: 'top-right',
+          autoClose: 2000
+        })
+        navigate(path.login)
+      },
+      onError: (error) => {
+        if (isAxiosBadRequestError<ErrorResponse<FormData>>(error)) {
+          console.log(error)
+          const formError = error.response?.data.message
+          if (formError === 'Email đã được sử dụng') {
+            setError('email', {
+              message: formError
+            })
+          }
+        }
+      }
+    })
+  })
   return (
     <div className='flex flex-col justify-center  sm:px-6 lg:px-8'>
       <div className='bg-white border border-gray-300 mx-2  mt-1 sm:mt-0 flex-shrink-0 sm:mx-auto sm:w-full sm:max-w-md rounded-lg sm:transform sm:transition-transform sm:duration-3s00 sm:ease-out sm:hover:scale-105 sm:hover:shadow-lg'>

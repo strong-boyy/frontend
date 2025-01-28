@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import config from '../constants/config'
 import { AuthResponse } from '../types/auth.type'
-import { setTokenToLS } from './auth'
+import { setProfileToLs, setTokenToLS } from './auth'
 
 class Http {
   instance: AxiosInstance
@@ -9,6 +9,7 @@ class Http {
   private refreshToken: string
   constructor() {
     this.accessToken = ''
+    this.refreshToken = ''
     this.instance = axios.create({
       baseURL: config.baseUrl,
       timeout: 10000,
@@ -34,10 +35,11 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === '/users/auth/login' || url === '/users/auth/register') {
+        if (url === '/users/auth/login') {
           this.accessToken = (response.data as AuthResponse).data.token.accessToken
           this.refreshToken = (response.data as AuthResponse).data.token.refreshToken
           setTokenToLS(this.accessToken, this.refreshToken)
+          setProfileToLs((response.data as AuthResponse).data.user)
         }
         return response
       },
