@@ -10,13 +10,15 @@ import { useNavigate } from 'react-router-dom'
 import path from '../../constants/path'
 import { useAppDispatch } from '../../store'
 import { loginSuccess } from '../../store/user.slice'
-import { User } from '../../types/user.type'
+import { isAxiosBadRequestError } from '../../utils/utils'
+import { ErrorResponse } from '../../types/utils.type'
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<LoginSchema>({
     resolver: yupResolver(loginSchema)
   })
@@ -39,7 +41,19 @@ export default function Login() {
         navigate(path.home)
       },
       onError: (error) => {
-        console.log('Error login: ', error)
+        if (isAxiosBadRequestError<ErrorResponse<LoginSchema>>(error)) {
+          console.log(error)
+          const formError = error.response?.data.message
+          if (formError === 'Vui lòng kiểm tra lại email') {
+            setError('email', {
+              message: formError
+            })
+          } else if (formError === 'Mật khẩu không đúng') {
+            setError('password', {
+              message: formError
+            })
+          }
+        }
       }
     })
   })

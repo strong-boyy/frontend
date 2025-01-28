@@ -1,14 +1,26 @@
 import { useState } from 'react'
 import path from '../../constants/path'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState, useAppDispatch } from '../../store'
+import { clearLS } from '../../utils/auth'
+import { logOut } from '../../store/user.slice'
 
 export default function Header() {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-
+  const isLoggedIn = useSelector((state: RootState) => state.user.isAuthenticated)
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const togglePopover = () => {
     setIsPopoverOpen((prev) => !prev)
   }
 
+  const handleLogout = () => {
+    clearLS()
+    dispatch(logOut())
+    navigate(path.login)
+  }
+  // console.log('Header: ', isLoggedIn)
   return (
     <div className='flex justify-between items-center mb-8'>
       {/* Search Input */}
@@ -50,13 +62,23 @@ export default function Header() {
                 <path d='M0 10L10 0L20 10H0Z' fill='#e2e8f0' />
               </svg>
               <ul className='py-2'>
-                <Link to={path.login}>
-                  <li className='px-4 py-2 hover:bg-slate-300 cursor-pointer'>Login</li>
-                </Link>
-                <Link to={path.register}>
-                  <li className='px-4 py-2 hover:bg-slate-300 cursor-pointer'>Register</li>
-                </Link>
-                {/* <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>Logout</li> */}
+                {!isLoggedIn && (
+                  <>
+                    <Link to={path.login}>
+                      <li className='px-4 py-2 hover:bg-slate-300 cursor-pointer'>Login</li>
+                    </Link>
+                    <Link to={path.register}>
+                      <li className='px-4 py-2 hover:bg-slate-300 cursor-pointer'>Register</li>
+                    </Link>
+                  </>
+                )}
+                {isLoggedIn && (
+                  <>
+                    <li onClick={handleLogout} className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
+                      Logout
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           )}

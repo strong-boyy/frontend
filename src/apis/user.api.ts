@@ -3,7 +3,7 @@ import http from '../utils/http'
 
 const userApi = {
   registerAccount: (body: { name: string; email: string; password: string }) => {
-    return http.post<string>('/users/auth/register', body)
+    return http.post('/users/auth/register', body)
   },
   login: (body: { email: string; password: string }) => {
     return http.post<AuthResponse>('/users/auth/login', body)
