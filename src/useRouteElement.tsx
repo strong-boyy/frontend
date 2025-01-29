@@ -8,6 +8,7 @@ import Setting from './pages/Setting'
 import Task from './pages/Task'
 import { useSelector } from 'react-redux'
 import { RootState } from './store'
+import Message from './pages/Message'
 
 function ProtectedRoute() {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated)
@@ -49,14 +50,7 @@ export default function useRouteElement() {
             </MainLayout>
           )
         },
-        {
-          path: '/message',
-          element: (
-            <MainLayout>
-              <Home />
-            </MainLayout>
-          )
-        },
+    
         {
           path: '/setting',
           element: (
@@ -70,6 +64,14 @@ export default function useRouteElement() {
           element: (
             <MainLayout>
               <Home />
+            </MainLayout>
+          )
+        },
+        {
+          path: '/message',
+          element: (
+            <MainLayout>
+              <Message />
             </MainLayout>
           )
         }
