@@ -12,6 +12,14 @@ import { useAppDispatch } from '../../store'
 import { loginSuccess } from '../../store/user.slice'
 import { isAxiosBadRequestError } from '../../utils/utils'
 import { ErrorResponse } from '../../types/utils.type'
+import { AuthGoogleResponse } from '../../types/auth.type'
+import { setProfileToLs, setTokenToLS } from '../../utils/auth'
+
+interface LoginGoogleType {
+  type: string
+  message: string
+  userData: AuthGoogleResponse
+}
 
 export default function Login() {
   const {
@@ -57,6 +65,39 @@ export default function Login() {
       }
     })
   })
+
+  const handleLoginByGoogle = () => {
+    const width = 600
+    const height = 800
+    const left = window.innerWidth / 2 - width / 2
+    const top = window.innerHeight / 2 - height / 2
+
+    window.open(
+      'http://localhost:3000/api/users/auth/google',
+      'google-login',
+      `width=${width},height=${height},top=${top},left=${left},resizable=yes`
+    )
+
+    window.addEventListener('message', (event: MessageEvent<LoginGoogleType>) => {
+      if (event.origin !== 'http://localhost:3000') {
+        return
+      }
+      if (event.data.type === 'google-login-success') {
+        const userData = event.data.userData
+        const { accessToken, refreshToken } = userData.token
+        setTokenToLS(accessToken, refreshToken)
+        setProfileToLs(userData.user)
+        dispatch(loginSuccess(userData.user))
+        // console.log('User data from Google login:', userData)
+        toast.success(event.data.message, {
+          position: 'top-right',
+          autoClose: 2000
+        })
+        navigate(path.home)
+      }
+    })
+  }
+
   return (
     <div className='  flex flex-col justify-center  sm:px-6 lg:px-8 '>
       <div className=' bg-white mx-2 border border-gray-300 flex-shrink-0 sm:mx-auto sm:w-full sm:max-w-md rounded-lg sm:transform sm:transition-transform sm:duration-3s00 sm:ease-out sm:hover:scale-105 sm:hover:shadow-lg'>
@@ -66,7 +107,10 @@ export default function Login() {
         </div>
         <div className=' sm:mx-auto sm:w-full sm:max-w-md sm:p-8'>
           <div className='bg-white px-4 sm:px-10'>
-            <button className='w-full font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline my-2'>
+            <button
+              onClick={handleLoginByGoogle}
+              className='w-full font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline my-2'
+            >
               <div className='bg-white p-2 rounded-full'>
                 <svg className='w-4' viewBox='0 0 533.5 544.3'>
                   <path
