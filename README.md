@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+# Task Management Web App (Similar to ClickUp)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a web application for managing tasks efficiently, similar to ClickUp. It helps users organize, track, and collaborate on tasks effectively.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is built with:
 
-## Expanding the ESLint configuration
+- **React + TypeScript**: For building a scalable and maintainable UI.
+- **Vite**: For fast development and optimized builds.
+- **Redux Toolkit**: For efficient and structured state management.
+- **Tanstack React Query**: For managing server-state and data fetching.
+- **Tailwind CSS**: For rapid and responsive styling.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+### Clone the repository:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+git clone <repository-url>
+cd <project-folder>
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+yarn
 ```
+
+### Start the development server:
+
+```sh
+yarn dev
+```
+
+This will run the project locally with hot reloading.
+
+## Additional Notes
+
+- The project uses **Redux Toolkit** for state management.
+- **Tanstack React Query** is used for data fetching and caching.
+- **Tailwind CSS** is used for styling.
+- **Vite** provides a fast development environment.
+
+For further customization, check the configuration files in the project.
+
+Happy coding! 🚀
