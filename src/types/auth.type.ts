@@ -8,3 +8,11 @@ export type AuthResponse = SuccessResponse<{
   }
   user: User
 }>
+
+export type AuthGoogleResponse = {
+  token: {
+    accessToken: string
+    refreshToken: string
+  }
+  user: User
+}
