@@ -10,6 +10,9 @@ const userApi = {
   },
   loginByGoogle: () => {
     return http.get('/users/auth/google')
+  },
+  verifyOTP: (body: { email: string; otp: number }) => {
+    return http.post<{ message: string }>('/users/auth/verifyOtp', body)
   }
 }
 

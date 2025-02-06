@@ -9,6 +9,7 @@ import Task from './pages/Task'
 import { useSelector } from 'react-redux'
 import { RootState } from './store'
 import Message from './pages/Message'
+import File from './pages/File'
 
 function ProtectedRoute() {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated)
@@ -50,7 +51,7 @@ export default function useRouteElement() {
             </MainLayout>
           )
         },
-    
+
         {
           path: '/setting',
           element: (
@@ -63,7 +64,7 @@ export default function useRouteElement() {
           path: '/file',
           element: (
             <MainLayout>
-              <Home />
+              <File />
             </MainLayout>
           )
         },
